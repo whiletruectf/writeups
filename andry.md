@@ -1,7 +1,7 @@
 # Andry
 ## slopey | 5/22/2020
 
-We are given an Android app. I used [Appetize](https://appetize.io) to run the Android app on my browser. There's nothing complicated about the app. It looks like a simple keygen problem. I decompile the APK using [Java Decompilers](http://www.javadecompilers.com/). 
+We are given an Android app. I used [Appetize](https://appetize.io) to run the Android app on my browser. There's nothing complicated about the app. It looks like a simple keygen problem. However, it turned out it was much more nuanced than that. I decompile the APK using [Java Decompilers](http://www.javadecompilers.com/). 
 
 The main logic for checking the password is in `/sources/com/andry/MainActivity.java`. The `check_password` function is the function of interest. Here is the first snippet:
 ```java
