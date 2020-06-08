@@ -55,9 +55,9 @@ This is easily reversible:
 ```python
 def decrypt(cipher):
   plaintext = ""
-  for idx, char in enumerate(cipher[5:-1]):
+  for idx, char in enumerate(cipher):
     plaintext += chr(ord(char) + idx)
-  return plaintext
+  return "flag{" + plaintext + "}"
 ```
 We can skip to our breakpoint in `memcmp` and copy the encrypt flag. When we run `decrypt(flag)`, we get our flag.
 ```
