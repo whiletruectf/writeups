@@ -41,7 +41,7 @@ After a while, we isolate the main encryption logic to these few lines of assemb
 When you run it a couple of times, it's very obvious what this is doing. `r9b` is initialized as the first character of the sliced input, and `dil` is initialized to zero. Then, this happens:
 - The value of `r9b` is decremented by `dil`, which is the counter
 - 1 is added to `edi` (so effectively `dil`)
-- The next character of the input is moved into `r9b`
+- The next character of the input is moved into `r9b` (FYI, this instruction is not shown in the above image.)
 
 So the Python equivalent of this would be:
 ```python
