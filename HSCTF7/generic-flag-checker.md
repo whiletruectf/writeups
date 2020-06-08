@@ -9,17 +9,17 @@ We are given an executable which encrypts the input and checks it against an enc
 ```
 Now, opening `memes-unpacked.exe` in Ghidra, we can find all of the functions and see all the normal headers. When we do a string search, we can locate main at the offset `0x1000`. However, when looking at the decompiler and the assembly, we find a lot of junk code.
 
-![Ghidra Decompiler](HSCTF7/ghidra2.PNG)
+![Ghidra Decompiler](ghidra2.PNG)
 
 This is most likely due to the fact that unpacking UPX doesn't always have a 100% accuracy. When I tried running the unpacked binary, it didn't even work. At this point, I chose to use x64dbg to kick off dynamic analysis of the binary. After opening `memes.exe`, I open the symbol tree and find calls to `strlen` and `memcmp`. Most likely, this is part of the actual program logic.
 
-![x64dbg symbol tree](HSCTF7/x64dbg1.PNG)
+![x64dbg symbol tree](x64dbg1.PNG)
 
 I set a breakpoint at both of those functions. When I hit the breakpoint, I press `Ctrl+F9` which continues until return. I then press `F8` to go to the next instruction so I can see where the function returns to. I hit `strlen` first and return twice, and I am sent to the main function.
 
 Looking at the disassembly, it is exactly the same as Ghidra. It's helpful at this point to graph the function so we can see the control flow diagram. But when we graph the main function on x64dbg, we are faced with this:
 
-![x64dbg graph view](HSCTF7/x64dbg2.PNG)
+![x64dbg graph view](x64dbg2.PNG)
 
 Okay, that's not very fun. So let's try to work backwards. I reason that since there's a call to `memcmp`, most likely we'll be given our encrypted input and the encrypted flag. We can work backwards from there to determine what the code does. When we hit the breakpoint, we can take a look at the `RCX` and `RDX` registers to view the parameters. One is likely the flag, and the other is the input. By the way, you can pass a command line argument to x64dbg by running this command:
 
@@ -28,7 +28,7 @@ init C:\Users\<Username>\<File Location>, <Command Line Argument #1>, <Command L
 ```
 Let's execute until return and step to where this function was called from. Inspecting the code on the graph view, we start to understand the binary more:
 
-![x64dbg graph view 2](HSCTF7/x64dbg3.PNG)
+![x64dbg graph view 2](x64dbg3.PNG)
 
 Great! This makes some sort of sense. We compare the encrypted flag with the encrypted input, and if it's the same, it's correct (and most likely the flag.) Now let's just try to figure out the encryption logic. One way to do this is to try to cheese the problem and just try to pass a bunch of different command line arguments and predict the pattern. If you start to pass in different command line arguments, you'll definetly start to see a pattern. But I was not smart and didn't realize the command line argument was even a string until much later, since I misread the Ghidra decompiler. So at this point, theoretically you don't even need to do any more reverse engineering, and it's also possible to use `angr` or some framework to brute the problem. But for the sake of this writeup, let's just try actually reverse engineering it.
 
@@ -36,7 +36,7 @@ I figured it's going to take me years to figure out what all of this code does, 
 
 After a while, we isolate the main encryption logic to these few lines of assembly:
 
-![x64dbg graph view 3](HSCTF7/x64dbg4.PNG)
+![x64dbg graph view 3](x64dbg4.PNG)
 
 When you run it a couple of times, it's very obvious what this is doing. `r9b` is initialized as the first character of the sliced input, and `dil` is initialized to zero. Then, this happens:
 - The value of `r9b` is decremented by `dil`, which is the counter
