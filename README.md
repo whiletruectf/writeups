@@ -6,4 +6,4 @@
 | Problem Name | Problem Category | Skills                      |Points | Writeup        |
 |----------------------|------------------|-----------------------------|-------|----------------|
 | Bank Robbing         | Forensics        | File Analysis, File Carving |       | [BankRobbing.md](/HSCTF7/BankRobbing.md) |
-| Generic Flag Checker | Reverse          | Windows Rev                 | 483   | [generic-flag-checker.md](/HSCTF/generic-flag-checker.md)
+| Generic Flag Checker | Reverse          | Windows Rev                 | 483   | [generic-flag-checker.md](/HSCTF7/generic-flag-checker.md)
