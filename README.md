@@ -1,5 +1,9 @@
 # Writeups by quintuplecs
 
+# FwordCTF
+| Problem Name | Category | Skills                       | Points | Writeup               |
+|--------------|----------|------------------------------|:------:|-----------------------|
+| xo           | Reverse  | Static analysis, programming | 475    | [xo.md](/Fword/xo.md) |
 
 # HSCTF 7 (June 1, 2020 to June 6, 2020)
 
