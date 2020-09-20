@@ -3,7 +3,7 @@
 # CSAW CTF Quals 2020
 | Problem Name | Category | Skills                       | Points | Writeup               |
 |--------------|----------|------------------------------|:------:|-----------------------|
-| whistleblow  | Web      | AWS S3                       | 250    | [web-widthless.md](/CSAW-CTF-Quals-2020/web-whistleblow.md) |
+| whistleblow  | Web      | AWS S3                       | 250    | [whistleblow.md](/CSAW-CTF-Quals-2020/whistleblow.md) |
 
 # FwordCTF
 | Problem Name | Category | Skills                       | Points | Writeup               |
